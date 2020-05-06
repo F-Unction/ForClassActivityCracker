@@ -5,61 +5,61 @@ using OpenQA.Selenium.Chrome;
 
 namespace ForClassActivityCracker
 {
-    class MainClass
+    static class MainClass
     {
-        private static string Url;
-        private static int times;
-        private static IWebDriver Driver;
-        private static Thread thread ;
+        private static string _url;
+        private static int _times;
+        private static IWebDriver _driver;
+        private static Thread _thread ;
         public static void Main(string[] args)
         {
-            ChromeDriverService driverService = ChromeDriverService.CreateDefaultService();
-            ChromeOptions options = new ChromeOptions();
+            var driverService = ChromeDriverService.CreateDefaultService();
+            var options = new ChromeOptions();
             driverService.HideCommandPromptWindow = true;
             options.AddArgument("headless");
-            Driver = new ChromeDriver(driverService, options);
+            _driver = new ChromeDriver(driverService, options);
 
             Console.WriteLine("Welcome to ForClassActivityCracker. A software for getting more scores in ForClass activity.");
             Console.WriteLine("To exit, press Ctrl-C. To use, just follow the words.");
             Console.WriteLine("Copyright (C) 2020 ForClassActivityCracker by F_Unction. All rights reserved.");
         LStart:
-            thread = new Thread(CrackForClass);
-            Url = ""; 
-            times = 0;
+            _thread = new Thread(CrackForClass);
+            _url = ""; 
+            _times = 0;
             Console.Write("input the url of your works. >");
-            Url = Console.ReadLine() + "&embed=true";
+            _url = Console.ReadLine() + "&embed=true";
             Console.Write("input scores(20 for 1) you want to get, if you inputted \"0\", we will work until you stop us. >");
-            times = int.Parse(Console.ReadLine());
+            _times = int.Parse(Console.ReadLine() ?? "");
             Console.Write("Started. Press any keys to stop. >");
-            thread.Start();
+            _thread.Start();
             Console.ReadKey();
-            if (!thread.IsAlive)
+            if (!_thread.IsAlive)
             {
-                thread.Abort();
+                _thread.Abort();
             }
             goto LStart;
         }
 
         private static void CrackForClass()
         {
-            if (Url.Length != 0)
+            if (_url.Length != 0)
             {
-                if (times != 0)
+                if (_times != 0)
                 {
-                    for (int i = 0; i < times; i++)
+                    for (var i = 0; i < _times; i++)
                     {
-                        if (Url.Length != 0)
+                        if (_url.Length != 0)
                         {
-                            Driver.Url = Url;
+                            _driver.Url = _url;
                         }
                     }
                     Console.WriteLine("Finished. Press any keys to back.");
                 }
                 else
                 {
-                    while (Url.Length != 0)
+                    while (_url.Length != 0)
                     {
-                        Driver.Url = Url;
+                        _driver.Url = _url;
                     }
                 }
             }
