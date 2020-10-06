@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/ForClassActivityCracker/v16
+/ForClassActivityCracker/bin
+/ForClassActivityCracker/obj/x86
+/packages/Selenium.WebDriver.3.141.0
